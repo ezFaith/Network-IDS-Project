@@ -5,3 +5,28 @@
 
 
 streamlit run app.py
+
+
+
+Summary of Commands to Update Your App
+
+
+Stage your local changes:
+
+git add .
+
+This command adds all your modified files (e.g., app.py, requirements.txt) to the staging area, preparing them for the next step.
+
+
+Commit your changes:
+
+git commit -m "Your descriptive message here"
+
+This saves the staged changes to your local Git history. The message should briefly describe what you changed.
+
+
+Push your changes to GitHub:
+
+git push origin main
+
+This sends the committed changes from your local machine to the main branch of your GitHub repository.

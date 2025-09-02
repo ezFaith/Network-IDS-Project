@@ -9,85 +9,38 @@ import plotly.graph_objects as go
 
 # Set page configuration to wide layout
 st.set_page_config(
-    page_title="ML-IDS",
+    page_title="Network IDS",
     layout="wide",
     initial_sidebar_state="collapsed",
     menu_items={
-        'About': 'A Machine Learning Based Network Intrusion Detection System.'
+        'About': 'A Deep Learning Anomaly Detection Project.'
     }
 )
 
-# Get theme colors directly from Streamlit's config for dynamic elements
-primary_color = st.get_option("theme.primaryColor")
-background_color = st.get_option("theme.backgroundColor")
-secondary_background_color = st.get_option("theme.secondaryBackgroundColor")
-text_color = st.get_option("theme.textColor")
-
-# Inject CSS for Font Awesome icons, footer styling, and the new title banner
-st.markdown(f"""
+# Inject CSS for Font Awesome icons and footer styling
+st.markdown("""
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Custom Title Banner Styling */
-        .title-banner {{
-            background-color: var(--secondary-background-color);
-            padding: 20px 0;
-            margin-bottom: 2rem;
-            border-radius: 8px;
-            text-align: center;
-        }}
-        .title-banner h1 {{
-            font-size: 2.5em;
-            color: var(--text-color);
-            margin: 0;
-            font-family: 'Poppins', sans-serif;
-        }}
-        .title-description {{
-            text-align: center;
-            font-family: 'Inter', sans-serif;
-            color: var(--text-color);
-            margin-top: -1.5rem;
-            margin-bottom: 2rem;
-        }}
-        /* General styling for buttons and metrics */
-        .stButton>button {{
-            border: 1px solid var(--primary-color);
-            color: var(--primary-color);
-            background-color: transparent;
-            padding: 0.75rem 1.5rem;
-            border-radius: 5px;
-        }}
-        .stButton>button:hover {{
-            color: var(--background-color);
-            background-color: var(--primary-color);
-        }}
-        .stMetric {{
-            border: 1px solid var(--secondary-background-color);
-            border-radius: 10px;
-            padding: 1rem;
-        }}
-        /* Footer Styling */
-        .footer {{
+        .footer {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
             text-align: center;
             padding: 10px;
-            color: var(--text-color);
-            background-color: var(--background-color);
-        }}
-        .social-icons a {{
-            color: var(--text-color);
+            color: #8B93A7;
+            background-color: #0e1117;
+        }
+        .social-icons a {
+            color: #8B93A7;
             font-size: 20px;
             margin: 0 10px;
             text-decoration: none;
             transition: color 0.3s;
-        }}
-        .social-icons a:hover {{
-            color: var(--primary-color);
-        }}
-        /* Font imports */
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Inter:wght@400&display=swap');
+        }
+        .social-icons a:hover {
+            color: #fafafa;
+        }
     </style>
 """, unsafe_allow_html=True)
 
@@ -148,20 +101,17 @@ def preprocess_and_predict(df, scaler, autoencoder, threshold):
 # ==============================================================================
 # 3. Streamlit UI and Logic
 # ==============================================================================
-# Custom HTML for the new title banner
-st.markdown('<div class="title-banner"><h1>Machine Learning Based Network Intrusion Detection System</h1></div>', unsafe_allow_html=True)
-st.markdown('<div class="title-description"><h3>Powered by a Deep Learning Autoencoder</h3><p>An application for identifying malicious network traffic by detecting deviations from normal behavior.</p></div>', unsafe_allow_html=True)
+st.header("Network Anomaly Detection System")
+st.markdown("### Powered by a Deep Learning Autoencoder")
+st.markdown("A prototype for identifying malicious network traffic by detecting deviations from normal behavior.")
 st.markdown("---")
-with st.container(border=True):
-    # Your content goes here
- st.subheader("Upload Your Network Traffic Data")
- uploaded_file = st.file_uploader("Choose a CSV file (from CICFlowMeter)", type="csv")
 
- if uploaded_file is not None and autoencoder is not None:
+st.subheader("Upload Your Network Traffic Data")
+uploaded_file = st.file_uploader("Choose a CSV file (from CICFlowMeter)", type="csv")
+
+if uploaded_file is not None and autoencoder is not None:
     try:
         df = pd.read_csv(uploaded_file)
-
-        st.info("File uploaded successfully. Starting analysis...")
         
         with st.spinner("Analyzing network traffic..."):
             predictions, mse, df_results = preprocess_and_predict(df.copy(), scaler, autoencoder, threshold)
@@ -177,7 +127,6 @@ with st.container(border=True):
         st.markdown("---")
         
         # --- High-level Metrics ---
-    
         st.subheader("Analysis Summary")
         col1, col2, col3 = st.columns(3)
         with col1:
@@ -191,32 +140,23 @@ with st.container(border=True):
         st.markdown("---")
         st.subheader("Visualizations")
         
-        # Plotly charts with borders
         col1, col2 = st.columns(2)
         with col1:
-            with st.container(border=True):
-                fig_pie = go.Figure(data=[go.Pie(labels=df_results['Prediction'].value_counts().index,
-                                                  values=df_results['Prediction'].value_counts().values,
-                                                  marker_colors=[primary_color, '#E74C3C'],
-                                                  hoverinfo="label+percent", textinfo="value",
-                                                  textfont=dict(color='#000000'))])
-                fig_pie.update_layout(title_text="         Traffic Distribution", title_x=0, showlegend=False,
-                                      paper_bgcolor='#1B2430', plot_bgcolor='#1B2430')
-                st.plotly_chart(fig_pie, use_container_width=True)
+            fig_pie = go.Figure(data=[go.Pie(labels=df_results['Prediction'].value_counts().index,
+                                              values=df_results['Prediction'].value_counts().values,
+                                              marker_colors=['#00c098', '#E74C3C'],
+                                              hoverinfo="label+percent", textinfo="value",
+                                              textfont=dict(color="white"))])
+            fig_pie.update_layout(title_text="Traffic Distribution", title_x=0.5, showlegend=False)
+            st.plotly_chart(fig_pie, use_container_width=True)
 
         with col2:
-            with st.container(border=True):
-                fig_hist = px.histogram(df_results, x="Reconstruction Error", color="Prediction",
-                                        color_discrete_map={'Benign': primary_color, 'Anomaly': '#E74C3C'},
-                                        title=f"         Reconstruction Error Distribution (Threshold = {threshold:.4f})")
-                # Removed threshold line and adjusted layout
-                fig_hist.add_vline(x=threshold, line_width=2, line_dash="dash", line_color="red", 
-                                   annotation_text=f"", annotation_position="top left",
-                                   annotation_font_color=text_color)
-                fig_hist.update_layout(title_x=0,
-                                       legend=dict(yanchor="top", y=0.99, xanchor="right", x=0.99),
-                                       paper_bgcolor='#1B2430', plot_bgcolor='#1B2430')
-                st.plotly_chart(fig_hist, use_container_width=True)
+            fig_hist = px.histogram(df_results, x="Reconstruction Error", color="Prediction",
+                                    color_discrete_map={'Benign': '#00c098', 'Anomaly': '#E74C3C'},
+                                    title="Reconstruction Error Distribution")
+            fig_hist.add_vline(x=threshold, line_width=2, line_dash="dash", line_color="red", annotation_text=f"Threshold: {threshold:.4f}", annotation_position="top right")
+            fig_hist.update_layout(legend=dict(yanchor="top", y=0.99, xanchor="left", x=0.01))
+            st.plotly_chart(fig_hist, use_container_width=True)
 
         # --- Detailed Anomaly Report ---
         st.markdown("---")
@@ -251,7 +191,7 @@ with st.container(border=True):
 st.markdown("---")
 # Custom HTML for the footer
 footer_html = """
-<div style="text-align: center; color: var(--text-color); font-size: 14px; margin-bottom: 5px;">
+<div style="text-align: center; color: #8B93A7; font-size: 14px; margin-bottom: 5px;">
     Project by Dipankar Saha
 </div>
 <div class="social-icons" style="text-align: center;">
@@ -268,7 +208,7 @@ footer_html = """
         <i class="fas fa-briefcase"></i>
     </a>
 </div>
-<div style="text-align: center; color: var(--text-color); font-size: 12px; margin-top: 10px;">
+<div style="text-align: center; color: #8B93A7; font-size: 12px; margin-top: 10px;">
     A cybersecurity project using a Deep Learning Autoencoder.
 </div>
 """

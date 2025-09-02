@@ -1,12 +1,11 @@
 [theme]
+# Default base theme is dark
 base="dark"
-# Main background color (deep charcoal)
-backgroundColor="#0e1117"
-# Secondary background for containers and sidebars (soft gray)
-secondaryBackgroundColor="#262730"
-# Primary accent color (a modern blue-green)
+backgroundColor="#352F44"
+secondaryBackgroundColor="#5C5470"
 primaryColor="#00c098"
-# Text color (off-white)
-textColor="#fafafa"
-# Font to give a clean look
+textColor="#E5E4E8"
 font="sans serif"
+# Set the maximum file upload size to 500 megabytes
+[server]
+maxUploadSize = 500
