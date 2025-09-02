@@ -1,0 +1,12 @@
+[theme]
+base="dark"
+# Main background color (deep charcoal)
+backgroundColor="#0e1117"
+# Secondary background for containers and sidebars (soft gray)
+secondaryBackgroundColor="#262730"
+# Primary accent color (a modern blue-green)
+primaryColor="#00c098"
+# Text color (off-white)
+textColor="#fafafa"
+# Font to give a clean look
+font="sans serif"
