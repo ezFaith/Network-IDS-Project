@@ -1,13 +1,13 @@
-# 🤖 Machine Learning-Based Network Intrusion Detection System (IDS)
+# Machine Learning-Based Network Intrusion Detection System (IDS)
 
-## 📌 Project Overview
+## ✦︎ Project Overview
 This project is a **cybersecurity application** that leverages a **Deep Learning Autoencoder** for **unsupervised anomaly detection** in network traffic. Unlike traditional signature-based IDS solutions, this system learns the statistical patterns of *normal traffic* and proactively flags deviations as potential intrusions — including **zero-day attacks**.
 
 The IDS is deployed as a **Streamlit web application**, providing an interactive interface for **data upload, analysis visualization, and report generation**.
 
 ---
 
-## ✨ Key Features
+## ✦︎ Key Features
 
 - **Deep Learning Model** – TensorFlow-based autoencoder trained exclusively on benign traffic for unsupervised detection.  
 - **Zero-Day Threat Detection** – Identifies unknown threats without relying on signatures or labeled attack data.  
@@ -20,7 +20,7 @@ The IDS is deployed as a **Streamlit web application**, providing an interactive
 
 ---
 
-## 🚀 Getting Started
+## ✦︎ Getting Started
 
 ### Prerequisites
 Ensure you have the following installed:  
@@ -63,7 +63,7 @@ Application will be available at: **http://localhost:8501**
 
 ---
 
-## 📈 Methodology
+## ✦︎ Methodology
 
 ### Data & Feature Engineering
 - Training dataset: **CICIDS2017**  
@@ -83,9 +83,9 @@ Application will be available at: **http://localhost:8501**
 
 ---
 
-## 🌐 Live Demo
+## ✦︎ Live Demo
 Try the hosted application here:  
-👉 [Streamlit App](https://projectnids.streamlit.app)  
+» [Streamlit App](https://projectnids.streamlit.app)  
 
 ---
 
