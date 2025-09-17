@@ -8,4 +8,4 @@ textColor="#E5E4E8"
 font="sans serif"
 # Set the maximum file upload size to 500 megabytes
 [server]
-maxUploadSize = 500
+maxUploadSize = 200
