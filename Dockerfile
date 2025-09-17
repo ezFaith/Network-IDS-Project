@@ -1,5 +1,5 @@
 # Use a lightweight Python base image with a version compatible with your dependencies
-FROM python:3.10-slim
+FROM python:3.11-slim
 
 # Set the working directory in the container
 WORKDIR /app
